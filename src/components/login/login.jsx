@@ -1,10 +1,11 @@
 import { Button, Col, Form, FormControl, InputGroup } from "react-bootstrap";
 import "../../static/css/login.css";
 import img from "../../static/img/icon_login.png";
-import setTiTitleTo from "../../static/js/helpers/utils.js";
+import { setTiTitleTo } from "../../static/js/helpers/utils";
 
 const Login = () => {
     setTiTitleTo("Login");
+    
     return (
         <div className="row">
             <div className="col-sm-8 col-md-6 col-lg-4 mx-auto d-table h-100">
