@@ -1,14 +1,13 @@
 body {
-    background: url("../img/bg-login.jpg") no-repeat center center fixed;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+    background: #C9D6FF;
+    background: -webkit-linear-gradient(to left, #E2E2E2, #C9D6FF);
+    background: linear-gradient(to left, #E2E2E2, #C9D6FF);
 }
 
-img {
+#img-login {
     width: 30%;
 }
 
-.card {
+#card-login {
     margin-top: 20%;
 }
