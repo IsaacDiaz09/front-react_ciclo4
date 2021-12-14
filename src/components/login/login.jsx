@@ -27,7 +27,7 @@ const Login = () => {
     }
 
     const handleLogin = (email, password) => {
-        axios.get(`${Constants.URL_BASE_DEV}/user/${email}/${password}`)
+        axios.get(`${Constants.URL_BASE_PROD}/user/${email}/${password}`)
             .then(response => {
                 if (response.data.id != null) {
                     localStorage.setItem("identification", response.data.identification);
@@ -37,7 +37,6 @@ const Login = () => {
                     localStorage.setItem("zone", response.data.zone);
                     mostrarToast("Bienvenido", "Inicio de sesion correcto", Constants.TOAST_SUCCESS);
                 } else {
-                    console.log("No existe")
                     mostrarToast("Error", "Usuario no existe", Constants.TOAST_DANGER);
                 }
             })

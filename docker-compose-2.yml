@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  react:
+    image: httpd:2.4.51
+    ports:
+    - 3000:80
+    volumes:
+    - C:/Users/Isaac/Downloads/react-build/build:/usr/local/apache2/htdocs
