@@ -23,7 +23,7 @@ const MyModal = (props) => {
                 <Button variant="danger" onClick={() => props.onClose()}>
                     Cancelar
                 </Button>
-                <Button variant="success">{props.message_btn}</Button>
+                <Button variant="success" onClick={() => props.onSave()}>{props.message_btn}</Button>
             </Modal.Footer>
         </Modal>
     );

@@ -7,7 +7,7 @@ import { Toast, ToastContainer } from "react-bootstrap";
 const CustomToast = (props) => {
 
     return (
-        <ToastContainer className="p-3" position="top-end">
+        <ToastContainer className="p-3" position="top-end" style={{zIndex:"1"}}>
             <Toast className="d-inline-block m-1" onClose={() => props.onClose()} show={props.show}
                 delay={3000} autohide bg={props.variant}>
                 <Toast.Header>

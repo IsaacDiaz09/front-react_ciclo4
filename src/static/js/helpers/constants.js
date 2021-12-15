@@ -20,5 +20,8 @@ const Constants = {
         quantity: 0,
         photography: ''
     },
+    HEADERS: {
+        'Content-Type': 'application/json'
+    },
 }
 export default Constants;
