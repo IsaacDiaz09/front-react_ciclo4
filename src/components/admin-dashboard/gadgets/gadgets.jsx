@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import { setTiTitleTo } from "../../../static/js/helpers/utils";
 import CustomToast from "../../shared/toast/toast";
 import Constants from "../../../static/js/helpers/constants";
-import axios from "axios";
 import "../../../static/css/alert.css";
 import MyModal from "../../shared/modal/modal";
+import { saveObj, updateObj, deleteObj } from "../../../static/js/helpers/axios-functions";
+import axios from "axios";
 
 const Gadgets = () => {
     useEffect(() => {
@@ -48,42 +49,30 @@ const Gadgets = () => {
         setmsgBtn("Guardar")
     }
 
-    const editGaddget = () => {
+    const openEditModalForm = (gadget) => {
+        setSelectSiNo(gadget.availability);
+        setGadget(gadget);
+        setEditForm(true);
+        setShowForm(true);
+        setModalTitle("Actualizar producto")
+        setmsgBtn("Editar")
     }
 
-    const deleteGaddget = () => {
+    const deleteGaddget = (gadget) => {
+        deleteObj(`${Constants.URL_BASE_PROD}/gadget/${gadget.id}`, mostrarToast, `Se ha eliminado el producto "${gadget.name}"`, queryGadgets);
     }
 
     const save = () => {
-        const header = Constants.HEADERS;
-        let url = `${Constants.URL_BASE_PROD}/gadget`
-
         if (editForm) {
-            url += "/update";
+            updateObj(
+                `${Constants.URL_BASE_PROD}/gadget/update`, gadget, mostrarToast,
+                `Se ha editado el producto correctamente`, setShowForm,
+                queryGadgets);
         } else {
-            url += "/new";
-        }
-
-        if (editForm) {
-            axios.put(url, gadget, { header }).then(response => {
-                setShowForm(false);
-                queryGadgets();
-                mostrarToast("Confirmación", "Se ha editado el producto correctamente", Constants.TOAST_PRIMARY);
-            }).catch(error => {
-                console.log(error.code);
-                console.log(error.message);
-                console.log(error.stack);
-            })
-        } else {
-            axios.post(url, gadget, { header }).then(response => {
-                setShowForm(false);
-                queryGadgets();
-                mostrarToast("Éxito", `Se ha guardado el producto "${gadget.name}"`, Constants.TOAST_SUCCESS);
-            }).catch(error => {
-                console.log(error.code);
-                console.log(error.message);
-                console.log(error.stack);
-            })
+            saveObj(
+                `${Constants.URL_BASE_PROD}/gadget/new`, gadget, mostrarToast,
+                `Se ha guardado el producto "${gadget.name}"`, setShowForm,
+                queryGadgets);
         }
     }
 
@@ -114,6 +103,7 @@ const Gadgets = () => {
                     <Table variant="light" striped bordered hover responsive="md" size="sm" >
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Marca</th>
                                 <th>Categoria</th>
@@ -129,6 +119,7 @@ const Gadgets = () => {
                             {gadgets.map((gadget, index) => {
                                 return (
                                     <tr key={index}>
+                                        <td>{gadget.id}</td>
                                         <td>{gadget.name}</td>
                                         <td>{gadget.brand}</td>
                                         <td>{gadget.category}</td>
@@ -137,8 +128,8 @@ const Gadgets = () => {
                                         <td>{gadget.quantity}</td>
                                         <td>{gadget.availability ? "SI" : "NO"}</td>
                                         <td><img src={gadget.photography} alt={gadget.name} height={50} /></td>
-                                        <td><Button variant="warning" onClick={() => editGaddget(gadget)}>Editar</Button></td>
-                                        <td><Button variant="danger" onClick={() => deleteGaddget(gadget.id)}>Borrar</Button></td>
+                                        <td><Button variant="warning" onClick={() => openEditModalForm(gadget)}>Editar</Button></td>
+                                        <td><Button variant="danger" onClick={() => deleteGaddget(gadget)}>Borrar</Button></td>
                                     </tr>
                                 );
                             })
@@ -168,11 +159,6 @@ const Gadgets = () => {
                                 placeholder="Marca" onChange={handleInputChange} value={gadget.brand} />
                         </div>
                         <div className="col-xs-12 col-lg-6">
-                            <label>Precio</label>
-                            <input type="number" min="0" className="form-control" id="price"
-                                placeholder="Precio" onChange={handleInputChange} value={gadget.price} />
-                        </div>
-                        <div className="col-xs-12 col-lg-6">
                             <label>Descripcion</label>
                             <textarea rows={3} className="form-control" id="description"
                                 placeholder="Descripcion" onChange={handleInputChange} value={gadget.description}></textarea>
@@ -183,6 +169,11 @@ const Gadgets = () => {
                                 <option value="true">SI</option>
                                 <option value="false">NO</option>
                             </select>
+                        </div>
+                        <div className="col-xs-12 col-lg-6">
+                            <label>Precio</label>
+                            <input type="number" min="0" className="form-control" id="price"
+                                placeholder="Precio" onChange={handleInputChange} value={gadget.price} />
                         </div>
                         <div className="col-xs-12 col-lg-6">
                             <label>Cantidad</label>
