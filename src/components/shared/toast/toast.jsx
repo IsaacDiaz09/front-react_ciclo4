@@ -1,5 +1,9 @@
 import { Toast, ToastContainer } from "react-bootstrap";
 
+/**
+ * Toast para mostrar mensajes de aviso cuando el usuario realize x accion,
+ * recibe la variante, un mensaje y titulo
+ */
 const CustomToast = (props) => {
 
     return (
