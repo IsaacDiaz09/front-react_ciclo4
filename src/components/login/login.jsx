@@ -1,9 +1,9 @@
+import "../../static/css/login.css";
 import { Button, FormControl, InputGroup } from "react-bootstrap";
 import { useState } from "react";
 import { setTiTitleTo } from "../../static/js/helpers/utils";
 import { validateForm, validateEmail } from "./functions-login";
 import img from "../../static/img/icon_login.png";
-import "../../static/css/login.css";
 import CustomToast from "../shared/toast/toast";
 import axios from "axios";
 import Constants from "../../static/js/helpers/constants";

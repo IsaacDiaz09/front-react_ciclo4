@@ -1,12 +1,13 @@
+import "../../../static/css/alert.css";
 import { Button, Table } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { setTiTitleTo } from "../../../static/js/helpers/utils";
 import CustomToast from "../../shared/toast/toast";
 import Constants from "../../../static/js/helpers/constants";
-import "../../../static/css/alert.css";
 import MyModal from "../../shared/modal/modal";
 import { saveObj, updateObj, deleteObj } from "../../../static/js/helpers/axios-functions";
 import axios from "axios";
+import { validateGadgetForm } from "./gadgets-functions";
 
 const Gadgets = () => {
     useEffect(() => {
@@ -63,17 +64,20 @@ const Gadgets = () => {
     }
 
     const save = () => {
-        if (editForm) {
-            updateObj(
-                `${Constants.URL_BASE_PROD}/gadget/update`, gadget, mostrarToast,
-                `Se ha editado el producto correctamente`, setShowForm,
-                queryGadgets);
-        } else {
-            saveObj(
-                `${Constants.URL_BASE_PROD}/gadget/new`, gadget, mostrarToast,
-                `Se ha guardado el producto "${gadget.name}"`, setShowForm,
-                queryGadgets);
+        if (validateGadgetForm(gadget,gadgets,mostrarToast) === true){
+            if (editForm) {
+                updateObj(
+                    `${Constants.URL_BASE_PROD}/gadget/update`, gadget, mostrarToast,
+                    `Se ha editado el producto correctamente`, setShowForm,
+                    queryGadgets);
+            } else {
+                saveObj(
+                    `${Constants.URL_BASE_PROD}/gadget/new`, gadget, mostrarToast,
+                    `Se ha guardado el producto "${gadget.name}"`, setShowForm,
+                    queryGadgets);
+            }
         }
+
     }
 
     const handleInputChange = (e) => {
