@@ -21,6 +21,19 @@ const Constants = {
         quantity: 0,
         photography: ""
     },
+    DEFAULT_USER: {
+        id: 0,
+        identification: 0,
+        name: "",
+        birthtDay: new Date(),
+        monthBirthtDay: "",
+        address: "",
+        cellPhone: 0,
+        email: "",
+        password: "",
+        zone: "",
+        type: ""
+    },
     HEADERS: {
         "Content-Type": "application/json"
     },

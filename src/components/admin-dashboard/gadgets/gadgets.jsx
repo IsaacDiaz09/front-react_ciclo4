@@ -1,4 +1,3 @@
-import "../../../static/css/alert.css";
 import { Button, Table } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { setTiTitleTo } from "../../../static/js/helpers/utils";
@@ -64,7 +63,7 @@ const Gadgets = () => {
     }
 
     const save = () => {
-        if (validateGadgetForm(gadget,gadgets,mostrarToast) === true){
+        if (validateGadgetForm(gadget,mostrarToast) === true){
             if (editForm) {
                 updateObj(
                     `${Constants.URL_BASE_PROD}/gadget/update`, gadget, mostrarToast,
