@@ -7,7 +7,7 @@ import MyModal from "../../shared/modal/modal";
 import { saveObj, updateObj, deleteObj } from "../../../static/js/helpers/axios-functions";
 import axios from "axios";
 import Moment from 'moment';
-import { DatePicker } from "@material-ui/pickers";
+
 
 const Users = () => {
     useEffect(() => {
@@ -19,8 +19,6 @@ const Users = () => {
     // users
     let [users, setUsers] = useState([]);
     let [user, setUser] = useState(Constants.DEFAULT_USER);
-    let [selectType, setSelectType] = useState("ADM");
-    let [dateBirthday, setDateBirthday] = useState(new Date());
 
     // modal
     let [showForm, setShowForm] = useState(false);
@@ -45,7 +43,6 @@ const Users = () => {
     }
 
     const addUser = () => {
-        setDateBirthday(new Date());
         setUser(Constants.DEFAULT_USER);
         setEditForm(false);
         setShowForm(true);
@@ -54,8 +51,6 @@ const Users = () => {
     }
 
     const openEditModalForm = (user) => {
-        setDateBirthday(user.birthtDay);
-        setSelectType(user.type);
         setUser(user);
         setEditForm(true);
         setShowForm(true);
@@ -68,12 +63,13 @@ const Users = () => {
     }
 
     const save = () => {
+
         if (editForm) {
+            user.birthtDay = new Date(user.birthtDay);
             updateObj(
                 `${Constants.URL_BASE_PROD}/user/update`, user, mostrarToast,
                 `Se ha editado el usuario correctamente`, setShowForm,
                 queryUsers);
-            console.log(user);
         } else {
             saveObj(
                 `${Constants.URL_BASE_PROD}/user/new`, user, mostrarToast,
@@ -81,21 +77,12 @@ const Users = () => {
                 queryUsers);
         }
     }
-    const handleInputChange = (e) => {
-        setUser({
-            ...user,
-            [e.currentTarget.id]: e.currentTarget.value,
-            birthtDay: dateBirthday,
-            type: selectType,
-            monthBirthtDay: dateBirthday.getMonth()
-        });
-        console.log(user)
 
-    }
-    const changeSelect = (e) => {
-        setSelectType(e.currentTarget.value);
-        user.type = selectType;
-    }
+    const handleInputChange = (e) => {
+        setUser({ ...user, [e.target.id]: e.target.value })
+    };
+
+
     const mostrarToast = (title, message, variant) => {
         setTitlet(title);
         setMessaget(message);
@@ -118,6 +105,7 @@ const Users = () => {
                                 <th>ID</th>
                                 <th>Identificacion</th>
                                 <th>Nombre</th>
+                                <th>Email</th>
                                 <th>Nacimiento</th>
                                 <th>Dirección</th>
                                 <th>Celular</th>
@@ -133,10 +121,11 @@ const Users = () => {
                                         <td>{user.id}</td>
                                         <td>{user.identification}</td>
                                         <td>{user.name}</td>
+                                        <td>{user.email}</td>
                                         <td>{Moment(user.birthtDay).format("YYYY-MM-DD")}</td>
                                         <td>{user.address}</td>
                                         <td>{user.cellPhone}</td>
-                                        <td>{user.type === "ASE" ? "Asesor comercial" : user.type === "COORD" ? "Coordinador de zona" : user.type === "ADM" ? "Administrador" : ""}</td>
+                                        <td>{user.type}</td>
                                         <td>{user.zone}</td>
                                         <td><Button variant="warning" onClick={() => openEditModalForm(user)}>Editar</Button></td>
                                         <td><Button variant="danger" onClick={() => deleteUser(user)}>Borrar</Button></td>
@@ -150,46 +139,46 @@ const Users = () => {
                     <div className="row">
                         <div className="col-xs-12 col-lg-6">
                             <label>ID</label>
-                            <input type="number" min="1" className="form-control" id="id"
+                            <input type="number" min="1" className="form-control" id="id" name="id"
                                 placeholder="ID" onChange={handleInputChange} value={user.id} disabled={editForm} />
                         </div>
                         <div className="col-xs-12 col-lg-6">
                             <label>Identificacion</label>
-                            <input type="number" className="form-control" id="identification"
+                            <input type="number" className="form-control" id="identification" name="identification"
                                 placeholder="Identificacion" onChange={handleInputChange} value={user.identification} />
                         </div>
                         <div className="col-xs-12 col-lg-6">
                             <label>Nombre</label>
-                            <input type="text" min="1" className="form-control" id="name"
+                            <input type="text" min="1" className="form-control" id="name" name="name"
                                 placeholder="Nombre" onChange={handleInputChange} value={user.name} />
                         </div>
                         <div className="col-xs-12 col-lg-6">
                             <label>Fecha de nacimiento</label>
-                            <DatePicker id="birthtDay" className="form-control" value={dateBirthday} onChange={setDateBirthday} />
+                            <input type="date" className="form-control" value={user.birthtDay} onChange={handleInputChange} id="birthtDay" />
                         </div>
                         <div className="col-xs-12 col-lg-6">
                             <label>Direccion</label>
-                            <input type="text" min="1" className="form-control" id="address"
+                            <input type="text" min="1" className="form-control" id="address" name="address"
                                 placeholder="Direccion" onChange={handleInputChange} value={user.address} />
                         </div>
                         <div className="col-xs-12 col-lg-6">
                             <label>Celular</label>
-                            <input type="number" className="form-control" id="cellPhone"
+                            <input type="number" className="form-control" id="cellPhone" name="cellPhone"
                                 placeholder="Celular" onChange={handleInputChange} value={user.cellPhone} />
                         </div>
                         <div className="col-xs-12 col-lg-6">
                             <label>Email</label>
-                            <input type="text" min="1" className="form-control" id="email"
+                            <input type="text" min="1" className="form-control" id="email" name="email"
                                 placeholder="name@domain.com" onChange={handleInputChange} value={user.email} />
                         </div>
                         <div className="col-xs-12 col-lg-6">
                             <label>Contraseña</label>
-                            <input type="password" className="form-control" id="password"
+                            <input type="password" className="form-control" id="password" name="password"
                                 placeholder="******" onChange={handleInputChange} value={user.password} />
                         </div>
                         <div className="col-xs-12 col-lg-6">
                             <label>Rol</label>
-                            <select value={selectType} onChange={changeSelect} className="form-control" id="type">
+                            <select value={user.type} onChange={handleInputChange} className="form-control" id="type">
                                 <option value="ADM">Administrador</option>
                                 <option value="ASE">Asesor comercial</option>
                                 <option value="COORD">Coordinador de zona</option>
@@ -197,7 +186,7 @@ const Users = () => {
                         </div>
                         <div className="col-xs-12 col-lg-6">
                             <label>Zona</label>
-                            <input type="text" className="form-control" id="zone"
+                            <input type="text" className="form-control" id="zone" name="zone"
                                 placeholder="Zona" onChange={handleInputChange} value={user.zone} />
                         </div>
                     </div>

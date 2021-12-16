@@ -26,7 +26,7 @@ const Constants = {
         identification: 0,
         name: "",
         birthtDay: new Date(),
-        monthBirthtDay: "",
+        monthBirthtDay: 0,
         address: "",
         cellPhone: 0,
         email: "",

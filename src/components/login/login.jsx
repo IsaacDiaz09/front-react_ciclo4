@@ -1,7 +1,7 @@
 import "../../static/css/login.css";
 import { Button, FormControl, InputGroup } from "react-bootstrap";
-import { useState } from "react";
-import { setTiTitleTo } from "../../static/js/helpers/utils";
+import { useEffect, useState } from "react";
+import { setTiTitleTo, isLoggedIn } from "../../static/js/helpers/utils";
 import { validateForm, validateEmail } from "./functions-login";
 import img from "../../static/img/icon_login.png";
 import CustomToast from "../shared/toast/toast";
@@ -10,6 +10,10 @@ import Constants from "../../static/js/helpers/constants";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+
+    useEffect(() => {
+        redirectBasedOnRole();
+    }, [])
 
     setTiTitleTo("Login | El mercader LTDA");
 
@@ -47,16 +51,18 @@ const Login = () => {
     }
 
     const redirectBasedOnRole = () => {
-        axios.get(`${Constants.URL_BASE_PROD}/user/${localStorage.getItem("id")}`)
-            .then(response => {
-                if (response.data.type === Constants.TYPE_ADM) {
-                    navigate("/admin-dashboard");
-                } if (response.data.type === Constants.TYPE_ASE) {
-                    navigate("/orders");
-                } if (response.data.type === Constants.TYPE_COORD) {
-                    navigate("/orders-management");
-                }
-            });
+        if (isLoggedIn()) {
+            axios.get(`${Constants.URL_BASE_PROD}/user/${localStorage.getItem("id")}`)
+                .then(response => {
+                    if (response.data.type === Constants.TYPE_ADM) {
+                        navigate("/admin-dashboard");
+                    } if (response.data.type === Constants.TYPE_ASE) {
+                        navigate("/orders");
+                    } if (response.data.type === Constants.TYPE_COORD) {
+                        navigate("/orders-management");
+                    }
+                });
+        }
     }
 
     return (

@@ -20,4 +20,7 @@ const logout = () => {
     localStorage.clear();
 }
 
+const verifyRole = (role) => {
+    
+}
 export { setTiTitleTo, isLoggedIn, logout, isEmpty};
