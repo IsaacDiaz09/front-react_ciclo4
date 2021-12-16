@@ -1,11 +1,14 @@
 import "../../static/css/orders.css";
 import { useEffect, useState } from "react";
+import Header from "../shared/header/header";
 
 const Orders = () => {
 
-    let [showAddBtn, setShowAddBtn] = useState(false);
+    // let [showAddBtn, setShowAddBtn] = useState(false);
     return (
-        <div className="container h-100">
+
+        <div className="h-100">
+            <Header />
             <div className="row h-100">
                 <div className="m-3">
                     <button type="button" className="btn btn-secondary btn-sm" id="show-orders">Ver mis pedidos</button>
@@ -16,9 +19,7 @@ const Orders = () => {
                         <h4 id="detail"></h4>
                         <div id="order"></div>
                         <span>
-                            {showAddBtn ?
-                                <button type="button" id="save-order" className="btn btn-primary">Guardar orden</button> : null
-                            }
+
                         </span>
                     </div>
                 </div>

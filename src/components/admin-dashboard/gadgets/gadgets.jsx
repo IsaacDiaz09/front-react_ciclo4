@@ -7,6 +7,7 @@ import MyModal from "../../shared/modal/modal";
 import { saveObj, updateObj, deleteObj } from "../../../static/js/helpers/axios-functions";
 import axios from "axios";
 import { validateGadgetForm } from "./gadgets-functions";
+import Header from "../../shared/header/header";
 
 const Gadgets = () => {
     useEffect(() => {
@@ -96,6 +97,7 @@ const Gadgets = () => {
 
     return (
         <div>
+            <Header />
             <div className="text-center m-2">
                 <h2><b><i>Productos</i></b></h2>
                 <Button variant="primary" size="sm" onClick={() => addGadget()}>
