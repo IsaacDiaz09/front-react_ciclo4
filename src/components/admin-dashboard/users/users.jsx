@@ -73,7 +73,7 @@ const Users = () => {
                 `${Constants.URL_BASE_PROD}/user/update`, user, mostrarToast,
                 `Se ha editado el usuario correctamente`, setShowForm,
                 queryUsers);
-                console.log(user);
+            console.log(user);
         } else {
             saveObj(
                 `${Constants.URL_BASE_PROD}/user/new`, user, mostrarToast,
