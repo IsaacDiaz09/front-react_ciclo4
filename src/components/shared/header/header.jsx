@@ -10,7 +10,7 @@ const Header = () => {
                     <img src={favicon} alt="" width={60} />
                     <Navbar.Brand href="#">
                         {" "}
-                        <p class="text-white">
+                        <p className="text-white">
                             <strong>EL MERCADER LTDA</strong>
                         </p>
                     </Navbar.Brand>

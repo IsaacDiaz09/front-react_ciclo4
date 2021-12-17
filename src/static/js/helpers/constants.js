@@ -10,6 +10,9 @@ const Constants = {
     TYPE_ADM: "ADM",
     TYPE_ASE: "ASE",
     TYPE_COORD: "COORD",
+    ORDER_PENDING: "Pendiente",
+    ORDER_APROVED: "Aprobada",
+    ORDER_REJECTED: "Rechazada",
     DEFAULT_PRODUCT: {
         id: 0,
         brand: "",
@@ -33,6 +36,14 @@ const Constants = {
         password: "",
         zone: "",
         type: ""
+    },
+    DEFAULT_ORDER: {
+        id: 0,
+        registerDay: new Date(),
+        status: "Pendiente",
+        salesMan: {},
+        products: {},
+        quantities: {}
     },
     HEADERS: {
         "Content-Type": "application/json"

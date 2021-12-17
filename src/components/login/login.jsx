@@ -7,7 +7,6 @@ import img from "../../static/img/icon_login.png";
 import CustomToast from "../shared/toast/toast";
 import axios from "axios";
 import Constants from "../../static/js/helpers/constants";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 
@@ -24,8 +23,6 @@ const Login = () => {
     let [titlet, setTitlet] = useState("");
     let [messaget, setMessaget] = useState("");
     let [variantt, setVariantt] = useState("");
-
-    const navigate = useNavigate();
 
     const mostrarToast = (title, message, variant) => {
         setTitlet(title);
@@ -55,11 +52,11 @@ const Login = () => {
             axios.get(`${Constants.URL_BASE_PROD}/user/${localStorage.getItem("id")}`)
                 .then(response => {
                     if (response.data.type === Constants.TYPE_ADM) {
-                        navigate("/admin-dashboard");
+                        window.location.href = "/admin-dashboard";
                     } if (response.data.type === Constants.TYPE_ASE) {
-                        navigate("/orders");
+                        window.location.href = "/orders";
                     } if (response.data.type === Constants.TYPE_COORD) {
-                        navigate("/orders-management");
+                        window.location.href = "/orders-management";
                     }
                 });
         }

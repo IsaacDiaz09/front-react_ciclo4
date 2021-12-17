@@ -39,7 +39,7 @@ const Users = () => {
             }).catch(error => {
                 console.log(error.code);
                 console.log(error.message);
-                console.log(error.stack);
+                mostrarToast("Error", "Ha sucedido un error al cargar los usuarios",Constants.TOAST_DANGER );
             })
     }
 
@@ -96,7 +96,7 @@ const Users = () => {
             <Header />
             <div className="container">
                 <div className="text-center m-2">
-                    <h2><b><i>Usuarios</i></b></h2>
+                    <h3><b><i>Usuarios</i></b></h3>
                     <Button variant="primary" size="sm" onClick={() => addUser()}>
                         ~ Agregar usuario ~
                     </Button>
