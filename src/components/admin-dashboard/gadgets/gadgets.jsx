@@ -64,7 +64,7 @@ const Gadgets = () => {
     }
 
     const save = () => {
-        if (validateGadgetForm(gadget,mostrarToast) === true){
+        if (validateGadgetForm(gadget, mostrarToast) === true) {
             if (editForm) {
                 updateObj(
                     `${Constants.URL_BASE_PROD}/gadget/update`, gadget, mostrarToast,
@@ -98,11 +98,13 @@ const Gadgets = () => {
     return (
         <div>
             <Header />
-            <div className="text-center m-2">
-                <h2><b><i>Productos</i></b></h2>
-                <Button variant="primary" size="sm" onClick={() => addGadget()}>
-                    ~ Agregar producto ~
-                </Button>
+            <div className="container">
+                <div className="text-center m-2">
+                    <h2><b><i>Productos</i></b></h2>
+                    <Button variant="primary" size="sm" onClick={() => addGadget()}>
+                        ~ Agregar producto ~
+                    </Button>
+                </div>
                 <hr />
                 {gadgets.length > 0 ?
                     <Table variant="light" striped bordered hover responsive="md" size="sm" >
