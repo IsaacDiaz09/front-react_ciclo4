@@ -107,7 +107,7 @@ const Gadgets = () => {
                 </div>
                 <hr />
                 {gadgets.length > 0 ?
-                    <Table variant="light" striped bordered hover responsive="md" size="sm" >
+                    <Table variant="light" className="text-center" striped bordered hover responsive="md" size="sm" >
                         <thead>
                             <tr>
                                 <th>ID</th>

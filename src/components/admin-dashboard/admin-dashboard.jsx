@@ -2,8 +2,10 @@ import "../../static/css/admin-dashboard.css";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Header from "../shared/header/header";
+import { setTiTitleTo } from "../../static/js/helpers/utils";
 
 const AdminDashboard = () => {
+    setTiTitleTo("Admin Dashboard | El mercader LTDA");
     return (
         <>
             <Header />

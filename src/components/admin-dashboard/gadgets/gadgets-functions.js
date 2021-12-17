@@ -2,8 +2,9 @@ import { isEmpty } from "../../../static/js/helpers/utils";
 import Constant from "../../../static/js/helpers/constants";
 
 const validateGadgetForm = (gadget, msgToast) => {
-    if (isEmpty(gadget.name) || isEmpty(gadget.category) || isEmpty(gadget.brand)
-        || isEmpty(gadget.description) || isEmpty(gadget.photography) || isEmpty(gadget.id)
+    console.log(gadget)
+    if (isEmpty(gadget.id) || isEmpty(gadget.brand) || isEmpty(gadget.category)
+        || isEmpty(gadget.name) || isEmpty(gadget.description) || isEmpty(gadget.photography)
         || isEmpty(gadget.price) || isEmpty(gadget.quantity)) {
         msgToast("Error de validación", "Todos los campos son requeridos", Constant.TOAST_DANGER);
         return false;

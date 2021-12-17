@@ -85,96 +85,97 @@ const Orders = () => {
     }
     const addGadget = () => {
     }
-    
+
     return (
         <div>
             <Header />
-            <div className="row h-100">
-                <div className="m-3">
-                    <Button variant="secondary" size="sm" onClick={() => showOrders()}>
-                        ~ Ver pedidos ~
-                    </Button>
-                    <div className="text-center">
-                        <h3><b><i>Ordenes de pedido</i></b></h3>
-                        <Button variant="primary" onClick={() => openModal()}>
-                            ~ Agregar producto ~
+            <div className="container">
+                <div className="row h-100">
+                    <div className="m-3">
+                        <Button variant="secondary" size="sm" onClick={() => showOrders()}>
+                            ~ Ver pedidos ~
                         </Button>
-                        <hr />
-                        <span>
-                            {
-                                gadgetsTable.length > 0 ?
-                                    <div>
-                                        <Table variant="light" striped bordered hover responsive="md" size="sm" >
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Nombre</th>
-                                                    <th scope="col">Precio</th>
-                                                    <th scope="col">Cantidad</th>
-                                                    <th scope="col">Foto</th>
-                                                    <th scope="col">Agregar</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {gadgetsTable.map((gadget, index) => {
-                                                    return (
-                                                        <tr key={index}>
-                                                            <td>{gadget.name}</td>
-                                                            <td>{gadget.price}</td>
-                                                            <td>{gadget.quantity}</td>
-                                                            <td><img src={gadget.photography} alt={gadget.name} height="50" /> </td>
-                                                            <td><button className="btn btn-outline-primary" onClick={() => addGadget(gadget)}>Seleccionar</button></td>
-                                                        </tr>
-                                                    );
-                                                })
-                                                }
-                                            </tbody>
-                                        </Table>
-                                        <Button variant="primary" onClick={() => save()}>
-                                            ~ Crear orden ~
-                                        </Button>
-                                    </div> : null
-                            }
-                        </span>
+                        <div className="text-center">
+                            <h3><b><i>Ordenes de pedido</i></b></h3>
+                            <Button variant="primary" onClick={() => openModal()}>
+                                ~ Agregar producto ~
+                            </Button>
+                            <hr />
+                            <span>
+                                {
+                                    gadgetsTable.length > 0 ?
+                                        <div>
+                                            <Table variant="light" striped bordered hover responsive="md" size="sm" >
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Nombre</th>
+                                                        <th scope="col">Precio</th>
+                                                        <th scope="col">Cantidad</th>
+                                                        <th scope="col">Foto</th>
+                                                        <th scope="col">Agregar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {gadgetsTable.map((gadget, index) => {
+                                                        return (
+                                                            <tr key={index}>
+                                                                <td>{gadget.name}</td>
+                                                                <td>{gadget.price}</td>
+                                                                <td>{gadget.quantity}</td>
+                                                                <td><img src={gadget.photography} alt={gadget.name} height="50" /> </td>
+                                                                <td><button className="btn btn-outline-primary" onClick={() => addGadget(gadget)}>Seleccionar</button></td>
+                                                            </tr>
+                                                        );
+                                                    })
+                                                    }
+                                                </tbody>
+                                            </Table>
+                                            <Button variant="primary" onClick={() => save()}>
+                                                ~ Crear orden ~
+                                            </Button>
+                                        </div> : null
+                                }
+                            </span>
 
-                        <MyModal show={showForm} title={modalTitle} onClick={() => setShowForm(false)} onClose={() => setShowForm(false)} onSave={() => setShowForm(false)} message_btn={msgBtn}>
-                            {
-                                gadgets.length > 0 ?
-                                    <div className="text-center">
-                                        <Table variant="light" striped bordered hover responsive="md" size="sm" >
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Nombre</th>
-                                                    <th scope="col">Precio</th>
-                                                    <th scope="col">Cantidad</th>
-                                                    <th scope="col">Foto</th>
-                                                    <th scope="col">Agregar</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {gadgets.map((gadget, index) => {
-                                                    return (
-                                                        <tr key={index}>
-                                                            <td>{gadget.name}</td>
-                                                            <td>{gadget.price}</td>
-                                                            <td>{gadget.quantity}</td>
-                                                            <td><img src={gadget.photography} alt={gadget.name} height="50" /> </td>
-                                                            <td><button className="btn btn-outline-primary" onClick={() => selectGadget(gadget)}>Seleccionar</button></td>
-                                                        </tr>
-                                                    );
-                                                })
-                                                }
-                                            </tbody>
-                                        </Table>
-                                    </div>
-                                    : <small className="text-muted">No hay ningun producto disponible</small>}
-                        </MyModal>
+                            <MyModal show={showForm} title={modalTitle} onClick={() => setShowForm(false)} onClose={() => setShowForm(false)} onSave={() => setShowForm(false)} message_btn={msgBtn}>
+                                {
+                                    gadgets.length > 0 ?
+                                        <div className="text-center">
+                                            <Table variant="light" striped bordered hover responsive="md" size="sm" >
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Nombre</th>
+                                                        <th scope="col">Precio</th>
+                                                        <th scope="col">Cantidad</th>
+                                                        <th scope="col">Foto</th>
+                                                        <th scope="col">Agregar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {gadgets.map((gadget, index) => {
+                                                        return (
+                                                            <tr key={index}>
+                                                                <td>{gadget.name}</td>
+                                                                <td>{gadget.price}</td>
+                                                                <td>{gadget.quantity}</td>
+                                                                <td><img src={gadget.photography} alt={gadget.name} height="50" /> </td>
+                                                                <td><button className="btn btn-outline-primary" onClick={() => selectGadget(gadget)}>Seleccionar</button></td>
+                                                            </tr>
+                                                        );
+                                                    })
+                                                    }
+                                                </tbody>
+                                            </Table>
+                                        </div>
+                                        : <small className="text-muted">No hay ningun producto disponible</small>}
+                            </MyModal>
 
+                        </div >
+                        <CustomToast show={showt} title={titlet} variant={variantt} message={messaget} onClose={() => setShowt(false)}></CustomToast>
                     </div >
-                    <CustomToast show={showt} title={titlet} variant={variantt} message={messaget} onClose={() => setShowt(false)}></CustomToast>
-                </div >
+                </div>
             </div>
         </div>
-
     );
 }
 

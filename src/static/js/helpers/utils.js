@@ -2,7 +2,10 @@ import $ from 'jquery';
 
 // Regresa boolean, verifica si un campo se dejo en blanco
 const isEmpty = (valor) => {
-    return valor === null || valor.trim() === "";
+    if (typeof valor === "number"){
+        return valor === null;
+    }
+    return valor.trim() === "";
 }
 
 // Modifica el titulo de la pag
