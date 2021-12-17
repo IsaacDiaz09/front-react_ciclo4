@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/login/login.jsx";
 import AdminDashboard from "./components/admin-dashboard/admin-dashboard.jsx";
 import Users from "./components/admin-dashboard/users/users.jsx";
@@ -12,6 +12,7 @@ import { Container } from "react-bootstrap";
 import favicon from "./static/img/favicon.png";
 import { Form } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
+
 
 function App() {
   return (
@@ -50,22 +51,16 @@ function App() {
 
             <Route exact path="/admin-dashboard" element={<AdminDashboard />} />
             <Route exact path="/admin-dashboard/users" element={<Users />} />
-            <Route
-              exact
-              path="/admin-dashboard/gadgets"
-              element={<Gadgets />}
+            <Route exact path="/admin-dashboard/gadgets" element={<Gadgets />}
             />
 
             <Route exact path="/orders" element={<Orders />} />
-            <Route
-              exact
-              path="/orders-management"
-              element={<OrderManagement />}
+            <Route exact path="/orders-management" element={<OrderManagement />}
             />
           </Routes>
         </Router>
       </div>
-    </>
+      </>
   );
 }
 
