@@ -28,6 +28,7 @@ const Users = () => {
     let [editForm, setEditForm] = useState(false);
     let [modalTitle, setModalTitle] = useState("");
     let [msgBtn, setmsgBtn] = useState("");
+
     // toast
     let [showt, setShowt] = useState(false);
     let [titlet, setTitlet] = useState("");
@@ -196,6 +197,7 @@ const Users = () => {
                             </div>
                         </div>
                     </MyModal>
+
                 </div >
                 <CustomToast show={showt} title={titlet} variant={variantt} message={messaget} onClose={() => setShowt(false)}></CustomToast>
             </div >
