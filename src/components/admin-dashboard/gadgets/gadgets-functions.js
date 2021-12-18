@@ -2,7 +2,6 @@ import { isEmpty } from "../../../static/js/helpers/utils";
 import Constant from "../../../static/js/helpers/constants";
 
 const validateGadgetForm = (gadget, msgToast) => {
-    console.log(gadget)
     if (isEmpty(gadget.id) || isEmpty(gadget.brand) || isEmpty(gadget.category)
         || isEmpty(gadget.name) || isEmpty(gadget.description) || isEmpty(gadget.photography)
         || isEmpty(gadget.price) || isEmpty(gadget.quantity)) {

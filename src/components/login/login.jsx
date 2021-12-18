@@ -44,6 +44,8 @@ const Login = () => {
                 } else {
                     mostrarToast("Error", "Usuario no existe", Constants.TOAST_DANGER);
                 }
+            }).catch(error => {
+                mostrarToast("Error", "Ha sucedido un error al autenticar usuario", Constants.TOAST_DANGER);
             })
     }
 

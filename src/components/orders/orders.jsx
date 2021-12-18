@@ -6,20 +6,20 @@ import { Button, Table } from "react-bootstrap";
 import CustomToast from "../../../src/components/shared/toast/toast";
 import Constants from "../../static/js/helpers/constants";
 import MyModal from "../../../src/components/shared/modal/modal";
-import { saveObj, updateObj, deleteObj } from "../../../src/static/js/helpers/axios-functions";
+import { saveObj } from "../../../src/static/js/helpers/axios-functions";
 import axios from "axios";
-import Moment from 'moment';
 
 const Orders = () => {
+    
     useEffect(() => {
         queryOrdersAndGadgets();
-    }, [])
+    }, []);
 
     let [myOrders, setMyOrders] = useState([]);
-    let [orderDetails, setOrderDetails] = useState(Constants.DEFAULT_ORDER);
     let [gadgets, setGadgets] = useState([]);
     let [gadgetsTable, setGadgetsTable] = useState([]);
-
+    let [quantity, setQuantities] = useState({});
+    let [user, setUser] = useState(Constants.DEFAULT_USER);
     // modal
     let [showForm, setShowForm] = useState(false);
     let [modalTitle, setModalTitle] = useState("");
@@ -39,19 +39,14 @@ const Orders = () => {
         setShowt(true);
     }
 
-    const openModal = () => {
+    const openModal = (msgTitle, msg) => {
         setShowForm(true);
-        setModalTitle("Elegir producto")
-        setmsgBtn("OK")
+        setModalTitle(msgTitle)
+        setmsgBtn(msg)
     }
     const showOrders = () => {
         console.log("SHOW ORDERS")
     }
-
-    const send = () => {
-        console.log("SEND")
-    }
-
     const selectGadget = (gadget) => {
         setShowForm(false);
         setGadgetsTable([...gadgetsTable, gadget]);
@@ -60,7 +55,7 @@ const Orders = () => {
     }
 
     const queryOrdersAndGadgets = () => {
-        axios.get(`${Constants.URL_BASE_PROD}/order/salesman/${localStorage.getItem("id")}`)
+        axios.get(`${Constants.URL_BASE_DEV}/order/salesman/${localStorage.getItem("id")}`)
             .then(response => {
                 setMyOrders(response.data);
             }).catch(error => {
@@ -69,7 +64,7 @@ const Orders = () => {
                 mostrarToast("Error", "Ha sucedido un error al cargar las ordenes", Constants.TOAST_DANGER);
             })
 
-        axios.get(`${Constants.URL_BASE_PROD}/gadget/all`)
+        axios.get(`${Constants.URL_BASE_DEV}/gadget/all`)
             .then(response => {
                 const gadgetsFilter = response.data;
                 let availablesGadgets = gadgetsFilter.filter(p => p.availability === true);
@@ -79,11 +74,31 @@ const Orders = () => {
                 console.log(error.message);
                 mostrarToast("Error", "Ha sucedido un error al cargar los productos disponibles", Constants.TOAST_DANGER);
             })
+
+        axios.get(`${Constants.URL_BASE_DEV}/user/${localStorage.getItem("id")}`)
+            .then(response => {
+                console.log(response.data)
+                setUser(response.data);
+            })
+            setGadgetsTable([]);
+    }
+    // se construye el obj orden con los datos recopilados
+    const save = () => {
+        let order = { salesMan: user, quantities: quantity, registerDay: new Date(), status: Constants.ORDER_PENDING, products: {} };
+
+        for (let i = 0; i < gadgetsTable.length; i++) {
+            order.products[i + 1] = gadgetsTable[i];
+        }
+
+        if (order.quantities[1] === undefined){
+            mostrarToast("Error", "Debe especificar la cantidad a pedir", Constants.TOAST_DANGER);
+        } else { 
+            saveObj(`${Constants.URL_BASE_DEV}/order/new`, order, mostrarToast, `Su pedido se ha registrado exitosamente`,setShowForm, queryOrdersAndGadgets);
+        }
     }
 
-    const save = () => {
-    }
-    const addGadget = () => {
+    const handleQuantityChange = (e) => {
+        setQuantities({ ...quantity, [e.target.id]: e.target.value });
     }
 
     return (
@@ -93,11 +108,11 @@ const Orders = () => {
                 <div className="row h-100">
                     <div className="m-3">
                         <Button variant="secondary" size="sm" onClick={() => showOrders()}>
-                            ~ Ver pedidos ~
+                            Mis pedidos
                         </Button>
                         <div className="text-center">
                             <h3><b><i>Ordenes de pedido</i></b></h3>
-                            <Button variant="primary" onClick={() => openModal()}>
+                            <Button variant="primary" onClick={() => openModal("Elegir producto","OK")}>
                                 ~ Agregar producto ~
                             </Button>
                             <hr />
@@ -112,7 +127,7 @@ const Orders = () => {
                                                         <th scope="col">Precio</th>
                                                         <th scope="col">Cantidad</th>
                                                         <th scope="col">Foto</th>
-                                                        <th scope="col">Agregar</th>
+                                                        <th scope="col">Cantidad</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -123,7 +138,7 @@ const Orders = () => {
                                                                 <td>{gadget.price}</td>
                                                                 <td>{gadget.quantity}</td>
                                                                 <td><img src={gadget.photography} alt={gadget.name} height="50" /> </td>
-                                                                <td><button className="btn btn-outline-primary" onClick={() => addGadget(gadget)}>Seleccionar</button></td>
+                                                                <td><input type="number" min={1} id={index + 1} max={gadget.quantity} onChange={handleQuantityChange} /></td>
                                                             </tr>
                                                         );
                                                     })
@@ -131,7 +146,7 @@ const Orders = () => {
                                                 </tbody>
                                             </Table>
                                             <Button variant="primary" onClick={() => save()}>
-                                                ~ Crear orden ~
+                                                Generar orden
                                             </Button>
                                         </div> : null
                                 }
@@ -169,7 +184,6 @@ const Orders = () => {
                                         </div>
                                         : <small className="text-muted">No hay ningun producto disponible</small>}
                             </MyModal>
-
                         </div >
                         <CustomToast show={showt} title={titlet} variant={variantt} message={messaget} onClose={() => setShowt(false)}></CustomToast>
                     </div >

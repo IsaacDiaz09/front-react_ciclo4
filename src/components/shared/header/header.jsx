@@ -3,12 +3,17 @@ import Navbar from "react-bootstrap/Navbar";
 import favicon from "../../../static/img/favicon.png";
 
 const Header = () => {
+    const logout = () => {
+            localStorage.clear();
+            window.location.href = "/";
+    }
+    
     return (
         <div>
             <Navbar bg="dark" expand="lg">
                 <Container fluid>
                     <img src={favicon} alt="" width={60} />
-                    <Navbar.Brand href="#">
+                    <Navbar.Brand>
                         {" "}
                         <p className="text-white">
                             <strong>EL MERCADER LTDA</strong>
@@ -21,7 +26,7 @@ const Header = () => {
                         navbarScroll
                     ></Nav>
                     <Form className="d-flex">
-                        <Button variant="danger" href="#">
+                        <Button variant="outline-danger" onClick={()=> logout()}>
                             Cerrar Sesión
                         </Button>
                     </Form>
