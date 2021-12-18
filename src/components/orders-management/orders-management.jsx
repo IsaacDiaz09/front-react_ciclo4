@@ -24,6 +24,7 @@ const OrderManagement = () => {
     let [showForm, setShowForm] = useState(false);
     let [modalTitle, setModalTitle] = useState("");
     let [msgBtn, setmsgBtn] = useState("");
+    let [date, setDate] = useState("");
 
     // toast
     let [showt, setShowt] = useState(false);
@@ -68,6 +69,16 @@ const OrderManagement = () => {
         setmsgBtn("OK")
     }
 
+    const queryFilteredOrders = () => {
+        axios.get(`${Constants.URL_BASE_PROD}/order/salesman/${localStorage.getItem("id")}`)
+            .then(response => {
+                setOrdersFiltered(response.data);
+            }).catch(error => {
+                console.log(error.code);
+                console.log(error.message);
+            })
+    }
+
     const aprobar = (order, boolean) => {
         if (boolean === true) {
             order.status = Constants.ORDER_APROVED;
@@ -77,8 +88,23 @@ const OrderManagement = () => {
         }
         updateObj(
             `${Constants.URL_BASE_PROD}/order/update`, order, mostrarToast,
-            `Se ha editado el estado de la orden correctamente`, setShowForm,
-            queryOrdersAndUser);
+            `Se ha editado el estado de la orden correctamente`, setShowForm,queryFilteredOrders
+        );
+    }
+
+    const handleChangeDate = (e) => {
+        setDate(e.target.value)
+        let d = new Date(date).toISOString().split('T')[0];
+        axios.get(`${Constants.URL_BASE_PROD}/order/date/${d}/${localStorage.getItem("id")}`)
+            .then(response => {
+                setOrdersFiltered(response.data);
+            }).catch(error => {
+                console.log(error.code);
+                console.log(error.message);
+                mostrarToast("Error", "Ha sucedido un error al cargar las ordenes por fecha", Constants.TOAST_DANGER);
+            })
+
+        //Ejemplo:http://BASE_URL/api/order/date/2021-11-15/6
 
     }
     return (
@@ -86,10 +112,16 @@ const OrderManagement = () => {
             <Header />
             <div className="container">
                 <div className="row h-100">
-                    <div className="m-3">
+                    <div className="m-2">
                         <Button variant="secondary" size="sm" onClick={() => showMyOrders()}>
                             Ordenes de la zona <b>{localStorage.getItem("id")}</b>
                         </Button>
+
+                        <h6 style={{ marginTop: 5 }}>Filtrar por fecha:{" "}
+                            <input type="date" value={date} onChange={handleChangeDate} onMouseLeave={handleChangeDate} /> </h6>
+
+                        <Button style={{ marginTop: 5 }} variant="primary" size="sm" onClick={() => console.log("Hola")}>
+                            Reiniciar filtros</Button>
                         <div className="text-center">
                             <h3><b><i>Listado de ordenes</i></b></h3>
                             <hr />
@@ -139,10 +171,11 @@ const OrderManagement = () => {
                                                             } else if (order.status === Constants.ORDER_REJECTED) {
                                                                 classAlert = "alert alert-danger";
                                                             }
+                                                            let strDate = new Date(order.registerDay).toISOString().split('T')[0];
 
                                                             return (
                                                                 <tr key={index}>
-                                                                    <td>{new Date(order.registerDay).toDateString()}</td>
+                                                                    <td>{strDate}</td>
                                                                     <td>[{productsName}]</td>
                                                                     <td>[{quantites}]</td>
                                                                     <td>${sum}</td>
@@ -202,10 +235,11 @@ const OrderManagement = () => {
                                                             } else if (order.status === Constants.ORDER_REJECTED) {
                                                                 classAlert = "alert alert-danger";
                                                             }
+                                                            let strDate = new Date(order.registerDay).toISOString().split('T')[0];
 
                                                             return (
                                                                 <tr key={index}>
-                                                                    <td>{new Date(order.registerDay).toDateString()}</td>
+                                                                    <td>{strDate}</td>
                                                                     <td>[{productsName}]</td>
                                                                     <td>[{quantites}]</td>
                                                                     <td>${sum}</td>
