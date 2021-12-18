@@ -103,10 +103,8 @@ const OrderManagement = () => {
                 console.log(error.message);
                 mostrarToast("Error", "Ha sucedido un error al cargar las ordenes por fecha", Constants.TOAST_DANGER);
             })
+        }
 
-        //Ejemplo:http://BASE_URL/api/order/date/2021-11-15/6
-
-    }
     return (
         <div>
             <Header />
@@ -120,8 +118,6 @@ const OrderManagement = () => {
                         <h6 style={{ marginTop: 5 }}>Filtrar por fecha:{" "}
                             <input type="date" value={date} onChange={handleChangeDate} onMouseLeave={handleChangeDate} /> </h6>
 
-                        <Button style={{ marginTop: 5 }} variant="primary" size="sm" onClick={() => console.log("Hola")}>
-                            Reiniciar filtros</Button>
                         <div className="text-center">
                             <h3><b><i>Listado de ordenes</i></b></h3>
                             <hr />
