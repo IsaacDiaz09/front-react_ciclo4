@@ -35,7 +35,7 @@ const Constants = {
         email: "",
         password: "",
         zone: "",
-        type: ""
+        type: "ADM"
     },
     DEFAULT_ORDER: {
         id: 0,
