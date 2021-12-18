@@ -7,7 +7,9 @@ import MyModal from "../../shared/modal/modal";
 import { saveObj, updateObj, deleteObj } from "../../../static/js/helpers/axios-functions";
 import axios from "axios";
 import Moment from 'moment';
+import { validateUserForm } from "./users-functions";
 import Header from "../../shared/header/header";
+
 
 
 const Users = () => {
@@ -64,7 +66,7 @@ const Users = () => {
     }
 
     const save = () => {
-
+        if (validateUserForm(user, mostrarToast) === true) {
         if (editForm) {
             user.birthtDay = new Date(user.birthtDay);
             updateObj(
@@ -78,7 +80,7 @@ const Users = () => {
                 queryUsers);
         }
     }
-
+    }
     const handleInputChange = (e) => {
         setUser({ ...user, [e.target.id]: e.target.value })
     };
@@ -200,4 +202,5 @@ const Users = () => {
         </div>
     );
 }
+
 export default Users;
