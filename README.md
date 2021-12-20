@@ -13,14 +13,14 @@ Se ha empaquetado y subido en <b>Heroku</b> en el siguiente enlace para su uso =
 Para poder ingresar a la aplicacion use alguno de los siguientes usuarios ya registrados:
 
     Email: pcaparosa@gmail.com
-    Clave : Demo123.
-    Zona: ZONA 
+    Clave : password
+    Zona: ZONA 3
     Rol: ASE
 
     Email: pedror@gmail.com
     Clave: password
     Zona: Zona 3
-    Rol: ASE
+    Rol: COORD
 
     Email: luisp@gmail.com
     Clave: password

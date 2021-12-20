@@ -3,7 +3,7 @@ const Constants = {
         /^(([^<>()[\]\\.,;:\s@”]+(\.[^<>()[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/,
     REGEX_URL: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/,
     URL_BASE_DEV: "http://127.0.0.1:8080/api",
-    URL_BASE_PROD: "https://backend-elmercader.herokuapp.com/api",
+    URL_BASE_PROD: "https://your-url-prod.here/api",
     TOAST_PRIMARY: "primary",
     TOAST_DANGER: "danger",
     TOAST_SUCCESS: "success",
