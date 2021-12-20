@@ -9,7 +9,7 @@
 #### Despliege
 Se ha empaquetado y subido en <b>Heroku</b> en el siguiente enlace para su uso = https://el-mercader.herokuapp.com/
 
-#### Usuarioa de prueba
+#### Usuarios de prueba
 Para poder ingresar a la aplicacion use alguno de los siguientes usuarios ya registrados:
 
     Email: pcaparosa@gmail.com
