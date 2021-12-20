@@ -1,0 +1,15 @@
+body {
+    background: #C9D6FF;
+    background: -webkit-linear-gradient(to left, #E2E2E2, #C9D6FF);
+    background: linear-gradient(to left, #E2E2E2, #C9D6FF);
+    width: 100%;
+    height: 100%;
+}
+
+#img-login {
+    width: 30%;
+}
+
+#card-login {
+    margin-top: 20%;
+}
